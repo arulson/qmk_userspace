@@ -98,7 +98,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * base layer to avoid having to layer change mid edit and to enable auto-repeat.
  */
   [LAYER_NAVIGATION] = LAYOUT_split_3x5_3(
-    _______, _______, _______, _______, KC_INS,     _______, KC_BTN1, KC_BTN2, KC_BTN3, _______,
+    _______, _______, _______, _______, KC_INS,     _______, MS_BTN1, MS_BTN2, MS_BTN3, _______,
     KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_BRIU,    _______, KC_RCTL, KC_RSFT, KC_RALT, KC_RGUI,
     KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_BRID,    _______, _______, _______, _______, _______,
                       _______, KC_ESC,  KC_DEL,     _______, _______, _______
@@ -120,8 +120,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_POINTER] = LAYOUT_split_3x5_3(
     QK_BOOT,  EE_CLR, XXXXXXX, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, XXXXXXX,  EE_CLR, QK_BOOT,
     KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
-    _______, DRGSCRL, SNIPING, KC_BTN3, XXXXXXX, XXXXXXX, KC_BTN3, SNIPING, DRGSCRL, _______,
-                      KC_BTN3, KC_BTN2, KC_BTN1, KC_BTN1, KC_BTN2, KC_BTN3
+    _______, DRGSCRL, SNIPING, MS_BTN3, XXXXXXX, XXXXXXX, MS_BTN3, SNIPING, DRGSCRL, _______,
+                      MS_BTN3, MS_BTN2, MS_BTN1, MS_BTN1, MS_BTN2, MS_BTN3
   ),
 
 /**
