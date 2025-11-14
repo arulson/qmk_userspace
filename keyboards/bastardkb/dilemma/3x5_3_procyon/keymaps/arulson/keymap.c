@@ -20,9 +20,9 @@
 
 enum dilemma_keymap_layers {
     LAYER_BASE = 0,
+    LAYER_BASE_MAC,
     LAYER_FUNCTION,
     LAYER_NAVIGATION,
-    LAYER_MEDIA,
     LAYER_POINTER,
     LAYER_NUMERAL,
     LAYER_SYMBOLS,
@@ -31,7 +31,6 @@ enum dilemma_keymap_layers {
 // Automatically enable sniping-mode on the pointer layer.
 // #define DILEMMA_AUTO_SNIPING_ON_LAYER LAYER_POINTER
 
-#define ESC_MED LT(LAYER_MEDIA, KC_ESC)
 #define SPC_NAV LT(LAYER_NAVIGATION, KC_SPC)
 #define F_FUN LT(LAYER_FUNCTION, KC_F)
 #define ENT_SYM LT(LAYER_SYMBOLS, KC_ENT)
@@ -60,9 +59,16 @@ const key_override_t *key_overrides[] = {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [LAYER_BASE] = LAYOUT_split_3x5_3(
        KC_Q,          KC_X,         KC_G,         KC_M,         KC_K,     KC_SCLN,  KC_COMM,      KC_QUOT,      KC_J,         KC_Z,
-       LGUI_T(KC_N),  LALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T), KC_W,     KC_DOT,   LCTL_T(KC_A), LSFT_T(KC_E), LALT_T(KC_I), LGUI_T(KC_H),
+       LGUI_T(KC_N),  LALT_T(KC_R), LSFT_T(KC_S), LCTL_T(KC_T), KC_W,     KC_DOT,   RCTL_T(KC_A), RSFT_T(KC_E), RALT_T(KC_I), RGUI_T(KC_H),
        PT_P,          KC_L,         KC_C,         KC_D,         KC_V,     KC_TAB,   KC_U,         KC_O,         KC_Y,         PT_B,
-                                    ESC_MED,      F_FUN,        BSP_NUM,  SPC_NAV,  ENT_SYM,      QK_CAPS_WORD_TOGGLE
+                            PDF(LAYER_BASE_MAC),  F_FUN,        BSP_NUM,  SPC_NAV,  ENT_SYM,      QK_CAPS_WORD_TOGGLE
+  ),
+
+  [LAYER_BASE_MAC] = LAYOUT_split_3x5_3(
+       KC_Q,          KC_X,         KC_G,         KC_M,         KC_K,     KC_SCLN,  KC_COMM,      KC_QUOT,      KC_J,         KC_Z,
+       LCTL_T(KC_N),  LALT_T(KC_R), LSFT_T(KC_S), LGUI_T(KC_T), KC_W,     KC_DOT,   RGUI_T(KC_A), RSFT_T(KC_E), RALT_T(KC_I), RCTL_T(KC_H),
+       PT_P,          KC_L,         KC_C,         KC_D,         KC_V,     KC_TAB,   KC_U,         KC_O,         KC_Y,         PT_B,
+                                PDF(LAYER_BASE),  F_FUN,        BSP_NUM,  SPC_NAV,  ENT_SYM,      QK_CAPS_WORD_TOGGLE
   ),
 /*
  * Layers used on the Dilemma.
@@ -99,27 +105,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [LAYER_NAVIGATION] = LAYOUT_split_3x5_3(
     _______, _______, _______, _______, KC_INS,     _______, MS_BTN1, MS_BTN2, MS_BTN3, _______,
-    KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_BRIU,    _______, KC_RCTL, KC_RSFT, KC_RALT, KC_RGUI,
+    KC_LEFT, KC_UP,   KC_DOWN, KC_RGHT, KC_BRIU,    _______, _______, _______, _______, _______,
     KC_PGUP, KC_PGDN, KC_HOME, KC_END,  KC_BRID,    _______, _______, _______, _______, _______,
                       _______, KC_ESC,  KC_DEL,     _______, _______, _______
-  ),
-/**
- * \brief Media layer.
- *
- * Tertiary left- and right-hand layer is media and RGB control.  This layer is
- * symmetrical to accomodate the left- and right-hand trackball.
- */
-  [LAYER_MEDIA] = LAYOUT_split_3x5_3(
-    XXXXXXX, RM_PREV, RM_TOGG, RM_NEXT, XXXXXXX, XXXXXXX, RM_PREV, RM_TOGG, RM_NEXT, XXXXXXX,
-    KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT, KC_MPRV, KC_VOLD, KC_MUTE, KC_VOLU, KC_MNXT,
-    XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-                      _______, KC_MPLY, KC_MSTP, KC_MSTP, KC_MPLY, KC_MUTE
   ),
 
 /** \brief Mouse emulation and pointer functions. */
   [LAYER_POINTER] = LAYOUT_split_3x5_3(
     QK_BOOT,  EE_CLR, XXXXXXX, DPI_MOD, S_D_MOD, S_D_MOD, DPI_MOD, XXXXXXX,  EE_CLR, QK_BOOT,
-    KC_LGUI, KC_LALT, KC_LCTL, KC_LSFT, XXXXXXX, XXXXXXX, KC_LSFT, KC_LCTL, KC_LALT, KC_LGUI,
+    _______, _______, _______, _______, XXXXXXX, XXXXXXX, _______, _______,   _______, _______,
     _______, DRGSCRL, SNIPING, MS_BTN3, XXXXXXX, XXXXXXX, MS_BTN3, SNIPING, DRGSCRL, _______,
                       MS_BTN3, MS_BTN2, MS_BTN1, MS_BTN1, MS_BTN2, MS_BTN3
   ),
@@ -133,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  */
   [LAYER_NUMERAL] = LAYOUT_split_3x5_3(
     _______,   _______,   _______,   _______,   _______,   KC_PLUS, KC_7,   KC_8,   KC_9,   KC_ASTR,
-    KC_LGUI,   KC_LALT,   KC_LSFT,   KC_LCTL,   _______,   KC_DOT,  KC_4,   KC_5,   KC_6,   KC_0,
+    _______,   _______,   _______,   _______,   _______,   KC_DOT,  KC_4,   KC_5,   KC_6,   KC_0,
     _______,   _______,   _______,   _______,   _______,   KC_EQL,  KC_1,   KC_2,   KC_3,   KC_SLSH,
                           _______,   _______,   _______,   KC_MPLY, KC_SPC, _______
   ),
@@ -146,7 +140,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * `KC_RPRN`.
  */
   [LAYER_SYMBOLS] = LAYOUT_split_3x5_3(
-    _______,   _______,   _______,  _______,  _______,   _______, _______, _______, _______, _______, 
+    _______,   RM_PREV,   RM_TOGG,  RM_NEXT,  _______,   _______, _______, _______, _______, _______, 
     KC_LBRC,   KC_RBRC,   KC_LCBR,  KC_RCBR,  KC_TILD,   _______, _______, _______, _______, _______, 
     KC_LABK,   KC_RABK,   KC_LPRN,  KC_RPRN,  KC_GRV,    _______, _______, _______, _______, _______, 
                           _______,  KC_UNDS,  KC_BSLS,   _______, _______, _______
@@ -169,7 +163,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [LAYER_BASE]       = {ENCODER_CCW_CW(MS_WHLD, MS_WHLU),  ENCODER_CCW_CW(KC_VOLD, KC_VOLU)},
     [LAYER_FUNCTION]   = {ENCODER_CCW_CW(KC_DOWN, KC_UP),    ENCODER_CCW_CW(KC_LEFT, KC_RGHT)},
     [LAYER_NAVIGATION] = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP),  ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
-    [LAYER_MEDIA]      = {ENCODER_CCW_CW(KC_PGDN, KC_PGUP),  ENCODER_CCW_CW(KC_VOLU, KC_VOLD)},
     [LAYER_POINTER]    = {ENCODER_CCW_CW(RM_HUED, RM_HUEU),  ENCODER_CCW_CW(RM_SATD, RM_SATU)},
     [LAYER_NUMERAL]    = {ENCODER_CCW_CW(RM_VALD, RM_VALU),  ENCODER_CCW_CW(RM_SPDD, RM_SPDU)},
     [LAYER_SYMBOLS]    = {ENCODER_CCW_CW(RM_PREV, RM_NEXT),  ENCODER_CCW_CW(KC_LEFT, KC_RGHT)},
